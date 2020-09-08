@@ -26,19 +26,18 @@ object RecFun extends RecFunInterface {
     def balance(chars: List[Char]): Boolean = {
         @tailrec
         def check(numCP: Int, c: Char, chars: List[Char]): Boolean = {
-            var newCP = -1
-            if (c == '(') {
-                newCP = numCP + 1
-            } else if (c == ')') {
-                newCP = numCP - 1
-            } else {
-                newCP = numCP
+            val closingParenthesisCount = c match {
+                case '(' => numCP + 1
+                case ')' => numCP - 1
+                case _ => numCP
             }
-            if (newCP == -1) return false
-            if (chars.isEmpty) {
-                if (newCP == 0) true else false
+
+            if (closingParenthesisCount == -1) {
+                false
+            } else if (chars.isEmpty && closingParenthesisCount == 0) {
+                true
             } else {
-                check(newCP, chars.head, chars.tail)
+                check(closingParenthesisCount, chars.head, chars.tail)
             }
         }
         check(0, chars.head, chars.tail)
@@ -47,5 +46,13 @@ object RecFun extends RecFunInterface {
     /**
      * Exercise 3
      */
-    def countChange(money: Int, coins: List[Int]): Int = -1
+    def countChange(money: Int, coins: List[Int]): Int = {
+        if (money == 0) {
+            1
+        } else if (money > 0 && !coins.isEmpty) {
+            countChange(money - coins.head, coins) + countChange(money, coins.tail)
+        } else {
+            0
+        }
+    }
 }
