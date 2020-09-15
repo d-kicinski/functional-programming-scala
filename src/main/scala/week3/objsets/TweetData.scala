@@ -1,4 +1,4 @@
-package objsets
+package week3.objsets
 
 // real tweet data, collected on Oct 1 2012
 object TweetData {

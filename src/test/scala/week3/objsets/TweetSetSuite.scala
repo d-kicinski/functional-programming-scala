@@ -1,7 +1,4 @@
-package objsets
-
-import org.junit._
-import org.junit.Assert.assertEquals
+package week3.objsets
 
 class TweetSetSuite {
   trait TestSets {
